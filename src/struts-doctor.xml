@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="doctor" namespace="/doctor" extends="all">
+		<!-- 用户系统-显示指定医生的信息 -->
+		<action name="infor" class="com.gxut.web.action.DoctorAction"
+			method="infor">
+			<result name="success">/introduction.jsp</result>
+		</action>
+		<!-- 用户系统-点击预约-->
+		<action name="order" class="com.gxut.web.action.DoctorAction"
+			method="order">
+			<interceptor-ref name="userStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">userLogin</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="success">/order.jsp</result>
+		</action>
+		<!-- 管理系统-显示所有医生-->
+		<action name="doctorShow" class="com.gxut.web.action.DoctorAction"
+			method="doctorShow">
+			<interceptor-ref name="adminStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">adminLogin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			<result name="success">/admin/doctor.jsp</result>
+		</action>
+		<!-- 管理系统-点击修改医生信息-->
+		<action name="editDoctor" class="com.gxut.web.action.DoctorAction"
+			method="editDoctor">
+			<interceptor-ref name="adminStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">adminLogin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			<result name="success">/admin/updateDoctor.jsp</result>
+		</action>
+		<!-- 管理系统-删除指定医生-->
+		<action name="deleteDoctor" class="com.gxut.web.action.DoctorAction"
+			method="deleteDoctor">
+			<interceptor-ref name="adminStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">adminLogin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			<result name="success">/admin/doctor.jsp</result>
+			<result name="failure">/admin/deleteDoctor_failure.jsp</result>
+		</action>
+		<!-- 用户系统-查找所有医生-->
+		<action name="allDoctor" class="com.gxut.web.action.DoctorAction"
+			method="allDoctor">
+			<result name="success">/home.jsp</result>
+		</action>
+		<!-- 管理系统-更新医生信息到数据库-->
+		<action name="updateDoctor" class="com.gxut.web.action.DoctorAction"
+			method="updateDoctor">
+			<interceptor-ref name="adminStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">adminLogin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			<result name="success">/admin/updateDoctor_success.jsp</result>
+			<result name="failure">/admin/updateDoctor_failure.jsp</result>
+		</action>
+		<!-- 用户系统-通过关键字查找医生-->
+		<action name="select" class="com.gxut.web.action.DoctorAction"
+			method="select">
+			<result name="success">/home.jsp</result>
+			<result name="failure">/select_failure.jsp</result>
+		</action>
+		<!-- 用户系统-通过疾病查找医生-->
+		<action name="selectDisease" class="com.gxut.web.action.DoctorAction"
+			method="selectDisease">
+			<result name="success">/home.jsp</result>
+			<result name="failure">/select_failure.jsp</result>
+		</action>
+		<!-- 管理系统-添加医生-->
+		<action name="addDoctor" class="com.gxut.web.action.DoctorAction"
+			method="addDoctor">
+			<interceptor-ref name="adminStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">adminLogin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			<result name="success">/admin/addDoctor_success.jsp</result>
+			<result name="failure">/admin/addDoctor_failure.jsp</result>
+		</action>
+		<!-- 显示目录-->
+		<action name="showCatByDisease" class="com.gxut.web.action.DoctorAction"
+			method="showCatByDisease">
+			<result name="success">/cat_list.jsp</result>
+			<result name="failure">/cat_list.jsp</result>
+		</action>
+	</package>
+</struts>	

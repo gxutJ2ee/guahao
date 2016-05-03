@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package  name="admin"  namespace="/admin"  extends="all">
+		<action name="adminLogin" class="com.gxut.web.action.AdminAction" method="execute"> 
+		 	<result name="success">/admin/adminLogin.jsp</result>
+		</action>
+		<action name="login" class="com.gxut.web.action.AdminAction" method="login"> 
+		 	<result name="success" type="chain">
+				<param name="actionName">doctorShow</param>
+				<param name="namespace">/doctor</param>
+			</result>
+		 	<result name="failure">/admin/login_failure.jsp</result>
+		</action>
+		<action name="exit" class="com.gxut.web.action.AdminAction" method="exit"> 
+		 	<result name="success">/admin/adminLogin.jsp</result>
+		</action>
+	</package>
+</struts>	

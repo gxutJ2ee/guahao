@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="order" namespace="/order" extends="all">
+		<!-- 用户系统-生成挂单 -->
+		<action name="order" class="com.gxut.web.action.OrderAction"
+			method="order">
+			<interceptor-ref name="userStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">userLogin</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="success">/admin/order_success.jsp</result>
+			<result name="failure">/admin/order_failure.jsp</result>
+		</action>
+		<!-- 用户系统-显示挂单 -->
+		<action name="orderList" class="com.gxut.web.action.OrderAction"
+			method="orderList">
+			<interceptor-ref name="userStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">userLogin</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="success">/orderList.jsp</result>
+		</action>
+		<!-- 用户系统-取消指定挂单 -->
+		<action name="cancel" class="com.gxut.web.action.OrderAction"
+			method="cancel">
+			<interceptor-ref name="userStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">userLogin</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="success">/orderList.jsp</result>
+			<result name="failure">/cancel_failure.jsp</result>
+		</action>
+		<!-- 管理系统-显示所有挂单 -->
+		<action name="orderShow" class="com.gxut.web.action.OrderAction"
+			method="orderShow">
+			<interceptor-ref name="adminStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">adminLogin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			<result name="success">/admin/order.jsp</result>
+		</action>
+		<!-- 管理系统-删除指定挂单 -->
+		<action name="deleteOrder" class="com.gxut.web.action.OrderAction"
+			method="deleteOrder">
+			<interceptor-ref name="adminStack"></interceptor-ref>
+			<result name="noLogin" type="chain">
+				<param name="actionName">adminLogin</param>
+				<param name="namespace">/admin</param>
+			</result>
+			<result name="success">/admin/order.jsp</result>
+			<result name="failure" type="chain">
+				<param name="actionName">orderShow</param>
+				<param name="namespace">/admin</param>
+			</result>
+		</action>
+	</package>
+</struts>	
